@@ -1,14 +1,30 @@
-.swipe-box {
-    display: block;
-    width: 100%;
-    float: left;
-    margin: 0;
+.gesture__zone {
+    background-color: #efefef;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 3px;
+    height: 500px;
+    text-align: center;
+    overflow: auto;
 }
 
-.visible {
-    display: block;
+h1, p, .gesture__indicator {
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Likely future */
 }
 
-.hidden {
-    display: none;
+.gesture__indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    display: block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 45px;
+    z-index: 10;
+    background-color: #42a5f5;
 }
