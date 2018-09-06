@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "startnode": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -47,5 +48,8 @@
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2"
+  },
+  "engines": {
+    "node": "8.10.0"
   }
 }
