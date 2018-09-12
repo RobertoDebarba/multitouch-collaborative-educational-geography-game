@@ -1,0 +1,18 @@
+<div class="country" ngDraggable
+     (started)="onDragBegin($event)"
+     (stopped)="onDragEnd($event)"
+     (movingOffset)="onMoving($event)"
+     (endOffset)="onMoveEnd($event)">
+     <img src="/assets/Partes/Base.png" alt="Smiley face" height="100%" width="100%">
+</div>
+
+<div 
+class="state" ngDraggable
+(started)="onDragBegin($event)"
+(stopped)="onDragEnd($event)"
+(movingOffset)="onMoving($event)"
+(endOffset)="onMoveEnd($event)"
+*ngFor="let state of states"
+[ngStyle]="{'top': state.position.top + '%', 'left': state.position.left + '%'}">
+    <img src="{{'/assets/Partes/' + state.file}}">
+</div>
