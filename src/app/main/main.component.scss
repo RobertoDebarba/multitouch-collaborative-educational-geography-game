@@ -1,9 +1,14 @@
-.country {
-    height: 100%;
-    width: 100%;
-    position: absolute;
+.game-canvas {
+	transform: scale(.5);
 }
 
-.state {
-    position: absolute;
+.game-div {
+	position: relative;
+	float: left;
+}
+
+.game-image {
+    width: 100%;
+	height: 100%;
+	position: absolute;
 }
