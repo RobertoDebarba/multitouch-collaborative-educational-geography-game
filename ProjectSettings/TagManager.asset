@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - States
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: States
+    uniqueID: 3372390691
     locked: 0
