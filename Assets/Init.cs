@@ -44,7 +44,7 @@ public class Init : MonoBehaviour {
         new StateSnap("RN", 5.18f, 2.37f),
     };
     
-    void Awake()
+    public void Awake()
     {
         masterObject = GameObject.Find("_MASTER");
         spawnObject = GameObject.Find("_SPAWN");
@@ -54,13 +54,8 @@ public class Init : MonoBehaviour {
 
     public void Start()
     {
-        Setup();
-    }
-
-    void Setup()
-    {
         var snapManager = masterObject.GetComponent<SnapManager>();
-       
+
         for (int i = 0; i < stateSnaps.Count; i++)
         {
             var state = stateSnaps[i];
@@ -102,6 +97,7 @@ public class Init : MonoBehaviour {
 
         Destroy(spawnObject);
     }
+    
 
     Vector3 ObtainSpawnPosition()
     {

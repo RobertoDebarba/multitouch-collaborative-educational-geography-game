@@ -12,7 +12,7 @@ public class SnapManager : MonoBehaviour {
     public GameObject endObject;
 
     int found = 0;
-    const int max = 2;
+    const int max = 26;
 
     public void Start()
     {
