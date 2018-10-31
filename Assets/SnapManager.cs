@@ -12,9 +12,10 @@ public class SnapManager : MonoBehaviour {
     public Text timerText;
     public GameObject endObject;
     public Text finalTimeText;
+    public GameObject[] hidePanelsOnEnd;
 
     int found = 0;
-    const int max = 2;//26;
+    const int max = 26;
     float timerDelta = 0;
     bool finishedGame = false;
     bool startedGame = false;
@@ -85,6 +86,12 @@ public class SnapManager : MonoBehaviour {
         finishedGame = true;
         finalTimeText.text = "TEMPO FINAL: " + GetTime();
         endObject.SetActive(true);
+
+        foreach (var obj in hidePanelsOnEnd)
+        {
+            Debug.Log(obj);
+            obj.SetActive(false);
+        }
     }
 
     public void Update()
