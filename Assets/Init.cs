@@ -96,9 +96,10 @@ public class Init : MonoBehaviour {
         }
 
         Destroy(spawnObject);
+
+        snapManager.StartTimer();
     }
     
-
     Vector3 ObtainSpawnPosition()
     {
         var collider = spawnObject.GetComponent<PolygonCollider2D>();

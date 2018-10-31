@@ -251,7 +251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 74.8}
+  m_AnchoredPosition: {x: 0, y: 112.22}
   m_SizeDelta: {x: 600, y: 193.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &153229270
@@ -492,14 +492,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 710574805}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0031455727, w: 0.9999951}
+  m_LocalRotation: {x: -0, y: -0, z: -0.008667107, w: 0.99996245}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 636852685}
   m_Father: {fileID: 1959899640}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.36}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.99300003}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -135, y: 129.1}
@@ -543,7 +543,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 710574808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1732255363}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &710574808
@@ -613,7 +624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -102.52}
+  m_AnchoredPosition: {x: 0, y: -59.9}
   m_SizeDelta: {x: 263.22, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &803050732
@@ -1416,7 +1427,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foundText: {fileID: 1747181866}
+  timerText: {fileID: 1582030168}
   endObject: {fileID: 1959899639}
+  finalTimeText: {fileID: 1627263630}
 --- !u!1 &1747181864
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,10 +9,20 @@ public class SnapManager : MonoBehaviour {
     GameObject stateParent;
 
     public Text foundText;
+    public Text timerText;
     public GameObject endObject;
+    public Text finalTimeText;
 
     int found = 0;
-    const int max = 26;
+    const int max = 2;//26;
+    float timerDelta = 0;
+    bool finishedGame = false;
+    bool startedGame = false;
+
+    public void StartTimer()
+    {
+        startedGame = true;
+    }
 
     public void Start()
     {
@@ -23,6 +33,14 @@ public class SnapManager : MonoBehaviour {
     void UpdateText()
     {
         foundText.text = "Estados encontrados: " + found;
+        timerText.text = "TEMPO: " + GetTime();
+    }
+
+    string GetTime()
+    {
+        int seconds = (int)(timerDelta % 60);
+        int minutes = (int)(timerDelta / 60);
+        return (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
 
     public void ReleasedPiece(StateSnap stateSnap)
@@ -50,7 +68,6 @@ public class SnapManager : MonoBehaviour {
                 stateObj.GetComponent<CircleCollider2D>().enabled = false;
 
                 found++;
-                UpdateText();
 
                 if (found >= max)
                 {
@@ -64,6 +81,18 @@ public class SnapManager : MonoBehaviour {
 
     void EndGame()
     {
+        timerText.enabled = false;
+        finishedGame = true;
+        finalTimeText.text = "TEMPO FINAL: " + GetTime();
         endObject.SetActive(true);
+    }
+
+    public void Update()
+    {
+        if (startedGame && !finishedGame)
+        {
+            UpdateText();
+            timerDelta += Time.deltaTime;
+        }
     }
 }
