@@ -6,6 +6,7 @@ using UnityEngine;
 public class Init : MonoBehaviour {
 
     GameObject masterObject;
+    GameObject spawnObject;
 
     GameObject statesParent;
     GameObject collisionParent;
@@ -46,6 +47,7 @@ public class Init : MonoBehaviour {
     void Awake()
     {
         masterObject = GameObject.Find("_MASTER");
+        spawnObject = GameObject.Find("_SPAWN");
         statesParent = GameObject.Find("States");
         collisionParent = GameObject.Find("Collision");
     }
@@ -71,6 +73,8 @@ public class Init : MonoBehaviour {
             var collisionObject = Instantiate(collisionPrefab);
             collisionObject.GetComponent<SpriteRenderer>().sprite = sprite;
             collisionObject.AddComponent<PolygonCollider2D>();
+            collisionObject.AddComponent<CircleCollider2D>();
+            collisionObject.GetComponent<CircleCollider2D>().radius = 0.15f;
             collisionObject.GetComponent<SpriteRenderer>().enabled = false;
             collisionObject.name = state.Name;
             collisionObject.transform.parent = collisionParent.transform;
@@ -78,18 +82,41 @@ public class Init : MonoBehaviour {
 
             var gestureEvent = new Gesture.GestureEvent();
             stateObject.GetComponent<ReleaseGesture>().OnRelease = gestureEvent;
-            stateObject.GetComponent<StateSnap>().Name = stateObject.name;
+
+            var snap = stateObject.GetComponent<StateSnap>();
+            snap.Name = state.Name;
+            snap.X = state.X;
+            snap.Y = state.Y;
+
             stateObject.GetComponent<SpriteRenderer>().sprite = sprite;
-            stateObject.transform.localPosition = new Vector3(state.X, state.Y, 0);
+            stateObject.transform.localPosition = ObtainSpawnPosition();
             stateObject.AddComponent<PolygonCollider2D>();
+            stateObject.AddComponent<CircleCollider2D>();
+            stateObject.GetComponent<CircleCollider2D>().radius = 0.15f;
             gestureEvent.AddListener((gesture) =>
             {
                 snapManager.ReleasedPiece(gesture.gameObject.GetComponent<StateSnap>());
             });
             stateObject.transform.parent = statesParent.transform;
-
-            
         }
+
+        Destroy(spawnObject);
+    }
+
+    Vector3 ObtainSpawnPosition()
+    {
+        var collider = spawnObject.GetComponent<PolygonCollider2D>();
+        do
+        {
+            var rX = Random.Range(-25, 25);
+            var rY = Random.Range(-10, 10);
+
+            var vector = new Vector3(rX, rY, 0);
+            if (collider.OverlapPoint(vector))
+            {
+                return vector;
+            }
+        } while (true);
     }
 
     public void Close()
