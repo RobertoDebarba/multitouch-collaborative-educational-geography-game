@@ -11,6 +11,8 @@ public class Init : MonoBehaviour {
     GameObject statesParent;
     GameObject collisionParent;
 
+    GameObject previewObject;
+
     public GameObject statePrefab;
     public GameObject collisionPrefab;
 
@@ -50,10 +52,32 @@ public class Init : MonoBehaviour {
         spawnObject = GameObject.Find("_SPAWN");
         statesParent = GameObject.Find("States");
         collisionParent = GameObject.Find("Collision");
+        previewObject = GameObject.Find("_PREVIEW");
     }
 
     public void Start()
     {
+        startGame();
+    }
+    
+
+    Vector3 ObtainSpawnPosition()
+    {
+        var collider = spawnObject.GetComponent<PolygonCollider2D>();
+        do
+        {
+            var rX = Random.Range(-25, 25);
+            var rY = Random.Range(-10, 10);
+
+            var vector = new Vector3(rX, rY, 0);
+            if (collider.OverlapPoint(vector))
+            {
+                return vector;
+            }
+        } while (true);
+    }
+
+    public void loadGame() {
         var snapManager = masterObject.GetComponent<SnapManager>();
 
         for (int i = 0; i < stateSnaps.Count; i++)
@@ -107,13 +131,41 @@ public class Init : MonoBehaviour {
         {
             var rX = Random.Range(-25, 25);
             var rY = Random.Range(-10, 10);
+        }
+    }
+    
+    public void startGame() {
+        initGameConfig();
+        showPreview();
+        loadGame();
+    }
 
-            var vector = new Vector3(rX, rY, 0);
-            if (collider.OverlapPoint(vector))
-            {
-                return vector;
-            }
-        } while (true);
+    public void loadInterval(){
+        int dificulty = 0; // Buscar do config static
+        if(dificulty == 1){
+            new WaitForSeconds(7);
+        } else if(dificulty == 2) {
+            new WaitForSeconds(5);
+        } else {
+            new WaitForSeconds(3);
+        }
+    }
+
+    public void showPreview() {
+        previewObject.SetActive(true);
+        loadInterval();
+        previewObject.SetActive(false);
+    }
+
+    public void initGameConfig() {
+        int dificulty = 0; // Buscar do config static
+        if(dificulty == 1){
+            GameConfig.countOfPreviews = 3;
+        } else if(dificulty == 2) {
+            GameConfig.countOfPreviews = 2;  
+        } else {
+            GameConfig.countOfPreviews = 1;
+        }
     }
 
     public void Close()
