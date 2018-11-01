@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SnapManager : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
     GameObject collisionParent;
     GameObject stateParent;
@@ -44,7 +44,7 @@ public class SnapManager : MonoBehaviour {
         return (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
 
-    public void ReleasedPiece(StateSnap stateSnap)
+    public void ReleasedPiece(State stateSnap)
     {
         var stateObj = stateParent.transform.Find(stateSnap.Name);
         var stateCollider = stateObj.gameObject.GetComponent<CircleCollider2D>();
@@ -63,7 +63,7 @@ public class SnapManager : MonoBehaviour {
         {
             if (colliding[i] == stateCollider)
             {
-                var snap = stateObj.GetComponent<StateSnap>();
+                var snap = stateObj.GetComponent<State>();
                 stateObj.transform.position = new Vector3(snap.X, snap.Y, stateObj.transform.position.z);
                 stateObj.GetComponent<PolygonCollider2D>().enabled = false;
                 stateObj.GetComponent<CircleCollider2D>().enabled = false;

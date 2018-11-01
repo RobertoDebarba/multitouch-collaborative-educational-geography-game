@@ -16,34 +16,34 @@ public class Init : MonoBehaviour {
     public GameObject statePrefab;
     public GameObject collisionPrefab;
 
-    List<StateSnap> stateSnaps = new List<StateSnap>()
+    List<State> stateSnaps = new List<State>()
     {
-        new StateSnap("AC", -4.16f, 1.47f),
-        new StateSnap("AM", -2.6f, 2.92f),
-        new StateSnap("SC", 1.17f, -3.76f),
-        new StateSnap("RS", 0.46f, -4.5f),
-        new StateSnap("PR", 1.18f, -2.9f),
-        new StateSnap("SP", 1.93f, -2.3f),
-        new StateSnap("MT", -0.12f, 0.4f),
-        new StateSnap("RO", -2.16f, 0.97f),
-        new StateSnap("PA", 0.83f, 2.94f),
-        new StateSnap("MA", 2.84f, 2.34f),
-        new StateSnap("TO", 1.97f, 1.36f),
-        new StateSnap("PI", 3.4f, 2.09f),
-        new StateSnap("GO", 1.65f, -0.5f),
-        new StateSnap("MS", 0.28f, -1.75f),
-        new StateSnap("MG", 2.71f, -1.22f),
-        new StateSnap("RJ", 3.51f, -2.11f),
-        new StateSnap("ES", 4.04f, -1.45f),
-        new StateSnap("BA", 3.76f, 0.26f),
-        new StateSnap("AL", 5.2f, 1.36f),
-        new StateSnap("RR", -1.73f, 4.52f),
-        new StateSnap("CE", 4.5f, 2.5f),
-        new StateSnap("AP", 0.83f, 4.38f),
-        new StateSnap("PB", 5.16f, 2.05f),
-        new StateSnap("PE", 4.86f, 1.68f),
-        new StateSnap("SE", 5.04f, 1.04f),
-        new StateSnap("RN", 5.18f, 2.37f),
+        new State("AC", -4.16f, 1.47f),
+        new State("AM", -2.6f, 2.92f),
+        new State("SC", 1.17f, -3.76f),
+        new State("RS", 0.46f, -4.5f),
+        new State("PR", 1.18f, -2.9f),
+        new State("SP", 1.93f, -2.3f),
+        new State("MT", -0.12f, 0.4f),
+        new State("RO", -2.16f, 0.97f),
+        new State("PA", 0.83f, 2.94f),
+        new State("MA", 2.84f, 2.34f),
+        new State("TO", 1.97f, 1.36f),
+        new State("PI", 3.4f, 2.09f),
+        new State("GO", 1.65f, -0.5f),
+        new State("MS", 0.28f, -1.75f),
+        new State("MG", 2.71f, -1.22f),
+        new State("RJ", 3.51f, -2.11f),
+        new State("ES", 4.04f, -1.45f),
+        new State("BA", 3.76f, 0.26f),
+        new State("AL", 5.2f, 1.36f),
+        new State("RR", -1.73f, 4.52f),
+        new State("CE", 4.5f, 2.5f),
+        new State("AP", 0.83f, 4.38f),
+        new State("PB", 5.16f, 2.05f),
+        new State("PE", 4.86f, 1.68f),
+        new State("SE", 5.04f, 1.04f),
+        new State("RN", 5.18f, 2.37f),
     };
     
     public void Awake()
@@ -79,7 +79,7 @@ public class Init : MonoBehaviour {
     }
 
     public void loadGame() {
-        var snapManager = masterObject.GetComponent<SnapManager>();
+        var snapManager = masterObject.GetComponent<GameManager>();
 
         for (int i = 0; i < stateSnaps.Count; i++)
         {
@@ -103,7 +103,7 @@ public class Init : MonoBehaviour {
             var gestureEvent = new Gesture.GestureEvent();
             stateObject.GetComponent<ReleaseGesture>().OnRelease = gestureEvent;
 
-            var snap = stateObject.GetComponent<StateSnap>();
+            var snap = stateObject.GetComponent<State>();
             snap.Name = state.Name;
             snap.X = state.X;
             snap.Y = state.Y;
@@ -115,7 +115,7 @@ public class Init : MonoBehaviour {
             stateObject.GetComponent<CircleCollider2D>().radius = 0.15f;
             gestureEvent.AddListener((gesture) =>
             {
-                snapManager.ReleasedPiece(gesture.gameObject.GetComponent<StateSnap>());
+                snapManager.ReleasedPiece(gesture.gameObject.GetComponent<State>());
             });
             stateObject.transform.parent = statesParent.transform;
         }
