@@ -11,6 +11,8 @@ public class Init : MonoBehaviour {
     GameObject statesParent;
     GameObject collisionParent;
 
+    GameObject previewObject;
+
     public GameObject statePrefab;
     public GameObject collisionPrefab;
 
@@ -50,10 +52,33 @@ public class Init : MonoBehaviour {
         spawnObject = GameObject.Find("_SPAWN");
         statesParent = GameObject.Find("States");
         collisionParent = GameObject.Find("Collision");
+        previewObject = GameObject.Find("_PREVIEW");
+        previewObject.SetActive(false);
     }
 
     public void Start()
     {
+        startGame();
+    }
+    
+
+    Vector3 ObtainSpawnPosition()
+    {
+        var collider = spawnObject.GetComponent<PolygonCollider2D>();
+        do
+        {
+            var rX = Random.Range(-25, 25);
+            var rY = Random.Range(-10, 10);
+
+            var vector = new Vector3(rX, rY, 0);
+            if (collider.OverlapPoint(vector))
+            {
+                return vector;
+            }
+        } while (true);
+    }
+
+    public void loadGame() {
         var snapManager = masterObject.GetComponent<SnapManager>();
 
         for (int i = 0; i < stateSnaps.Count; i++)
@@ -99,21 +124,39 @@ public class Init : MonoBehaviour {
 
         snapManager.StartTimer();
     }
-    
-    Vector3 ObtainSpawnPosition()
-    {
-        var collider = spawnObject.GetComponent<PolygonCollider2D>();
-        do
-        {
-            var rX = Random.Range(-25, 25);
-            var rY = Random.Range(-10, 10);
 
-            var vector = new Vector3(rX, rY, 0);
-            if (collider.OverlapPoint(vector))
-            {
-                return vector;
-            }
-        } while (true);
+    public void startGame() {
+        initGameConfig();
+        StartCoroutine(showPreview());
+    }
+
+    public IEnumerator loadInterval(){
+        int dificulty = 3; // Buscar do config static
+        if(dificulty == 1){
+            yield return new WaitForSeconds(7);
+        } else if(dificulty == 2) {
+            yield return new WaitForSeconds(5);
+        } else {
+            yield return new WaitForSeconds(3);
+        }
+    }
+
+    public IEnumerator showPreview() {
+        previewObject.SetActive(true);
+        yield return loadInterval();
+        previewObject.SetActive(false);
+        loadGame();
+    }
+
+    public void initGameConfig() {
+        int dificulty = 3; // Buscar do config static
+        if(dificulty == 1){
+            GameConfig.countOfPreviews = 3;
+        } else if(dificulty == 2) {
+            GameConfig.countOfPreviews = 2;  
+        } else {
+            GameConfig.countOfPreviews = 1;
+        }
     }
 
     public void Close()

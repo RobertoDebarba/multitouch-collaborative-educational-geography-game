@@ -2,8 +2,29 @@
 
 public class Menu : MonoBehaviour {
 
-    public void SelectLevel(int level)
+    GameObject startMenuCanvas;
+    GameObject insertNameCanvas;
+    int selectedDifficulty = 0;
+
+    public void Awake()
     {
-        Application.LoadLevel(level);
+        startMenuCanvas = GameObject.Find("StartMenuCanvas");
+        insertNameCanvas = GameObject.Find("InsertNameCanvas");
+
+        startMenuCanvas.SetActive(true);
+        insertNameCanvas.SetActive(false);
+    }
+
+    public void SelectLevel(int difficulty)
+    {
+        selectedDifficulty = difficulty;
+
+        startMenuCanvas.SetActive(false);
+        insertNameCanvas.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+        Application.LoadLevel("Game");
     }
 }
