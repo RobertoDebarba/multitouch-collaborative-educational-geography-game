@@ -141,11 +141,13 @@ public class Init : MonoBehaviour {
         }
     }
 
-    public IEnumerator showPreview() {
+    public IEnumerator showPreview(bool shouldLoadGame = true) {
         previewObject.SetActive(true);
         yield return loadInterval();
         previewObject.SetActive(false);
-        loadGame();
+
+        if (shouldLoadGame)
+            loadGame();
     }
 
     public void initGameConfig() {

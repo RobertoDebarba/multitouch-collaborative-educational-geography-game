@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 
     GameObject collisionParent;
     GameObject stateParent;
+    GameObject foundParent;
 
     public Text foundText;
     public Text timerText;
@@ -29,12 +30,13 @@ public class GameManager : MonoBehaviour {
     {
         collisionParent = GameObject.Find("Collision");
         stateParent = GameObject.Find("States");
+        foundParent = GameObject.Find("_FOUND");
     }
 
     void UpdateText()
     {
         foundText.text = "Estados encontrados: " + found;
-        timerText.text = "TEMPO: " + GetTime();
+        timerText.text = "Tempo: " + GetTime();
     }
 
     string GetTime()
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviour {
                 stateObj.GetComponent<PolygonCollider2D>().enabled = false;
                 stateObj.GetComponent<CircleCollider2D>().enabled = false;
 
+                stateObj.SetParent(foundParent.transform, false);
+
                 found++;
 
                 if (found >= max)
@@ -84,7 +88,7 @@ public class GameManager : MonoBehaviour {
     {
         timerText.enabled = false;
         finishedGame = true;
-        finalTimeText.text = "TEMPO FINAL: " + GetTime();
+        finalTimeText.text = "Tempo final: " + GetTime();
         endObject.SetActive(true);
 
         foreach (var obj in hidePanelsOnEnd)

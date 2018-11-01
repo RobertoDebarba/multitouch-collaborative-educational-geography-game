@@ -89,7 +89,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  type: 7
+  type: 1
   screenTransformThreshold: 0.1
   minScreenPointsDistance: 0.5
   projectionProps: 0
