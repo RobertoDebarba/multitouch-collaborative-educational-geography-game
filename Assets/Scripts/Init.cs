@@ -20,18 +20,18 @@ public class Init : MonoBehaviour {
     {
         new State("AC", -4.16f, 1.47f),
         new State("AM", -2.6f, 2.92f),
-        new State("SC", 1.17f, -3.76f),
-        new State("RS", 0.46f, -4.5f),
-        new State("PR", 1.18f, -2.9f),
-        new State("SP", 1.93f, -2.3f),
-        new State("MT", -0.12f, 0.4f),
-        new State("RO", -2.16f, 0.97f),
-        new State("PA", 0.83f, 2.94f),
+        new State("SC", 1.18f, -3.76f),
+        new State("RS", 0.49f, -4.5f),
+        new State("PR", 1.16f, -2.9f),
+        new State("SP", 1.9f, -2.3f),
+        new State("MT", -0.14f, 0.41f),
+        new State("RO", -2.18f, 0.97f),
+        new State("PA", 0.83f, 2.97f),
         new State("MA", 2.84f, 2.34f),
         new State("TO", 1.97f, 1.36f),
         new State("PI", 3.4f, 2.09f),
         new State("GO", 1.65f, -0.5f),
-        new State("MS", 0.28f, -1.75f),
+        new State("MS", 0.26f, -1.73f),
         new State("MG", 2.71f, -1.22f),
         new State("RJ", 3.51f, -2.11f),
         new State("ES", 4.04f, -1.45f),
@@ -39,7 +39,7 @@ public class Init : MonoBehaviour {
         new State("AL", 5.2f, 1.36f),
         new State("RR", -1.73f, 4.52f),
         new State("CE", 4.5f, 2.5f),
-        new State("AP", 0.83f, 4.38f),
+        new State("AP", 0.83f, 4.4f),
         new State("PB", 5.16f, 2.05f),
         new State("PE", 4.86f, 1.68f),
         new State("SE", 5.04f, 1.04f),
@@ -109,7 +109,7 @@ public class Init : MonoBehaviour {
             snap.Y = state.Y;
 
             stateObject.GetComponent<SpriteRenderer>().sprite = sprite;
-            stateObject.transform.localPosition = ObtainSpawnPosition();
+            stateObject.transform.localPosition = collisionObject.transform.localPosition; //ObtainSpawnPosition();
             stateObject.AddComponent<PolygonCollider2D>();
             stateObject.AddComponent<CircleCollider2D>();
             stateObject.GetComponent<CircleCollider2D>().radius = 0.15f;
