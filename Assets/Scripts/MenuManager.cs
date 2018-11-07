@@ -27,4 +27,9 @@ public class MenuManager : MonoBehaviour {
     {
         Application.LoadLevel("Game");
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
