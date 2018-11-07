@@ -79,7 +79,7 @@ public class Init : MonoBehaviour {
     }
 
     public void loadGame() {
-        var snapManager = masterObject.GetComponent<GameManager>();
+        var snapManager = masterObject.GetComponent<GameUIManager>();
 
         for (int i = 0; i < stateSnaps.Count; i++)
         {
@@ -109,7 +109,7 @@ public class Init : MonoBehaviour {
             snap.Y = state.Y;
 
             stateObject.GetComponent<SpriteRenderer>().sprite = sprite;
-            stateObject.transform.localPosition = collisionObject.transform.localPosition; //ObtainSpawnPosition();
+            stateObject.transform.localPosition = ObtainSpawnPosition();
             stateObject.AddComponent<PolygonCollider2D>();
             stateObject.AddComponent<CircleCollider2D>();
             stateObject.GetComponent<CircleCollider2D>().radius = 0.15f;

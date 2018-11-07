@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameUIManager : MonoBehaviour {
 
     GameObject collisionParent;
     GameObject stateParent;
     GameObject foundParent;
+    GameObject backCanvas;
 
     public Text foundText;
     public Text timerText;
@@ -31,6 +32,9 @@ public class GameManager : MonoBehaviour {
         collisionParent = GameObject.Find("Collision");
         stateParent = GameObject.Find("States");
         foundParent = GameObject.Find("_FOUND");
+        backCanvas = GameObject.Find("BackCanvas");
+
+        backCanvas.SetActive(false);
     }
 
     void UpdateText()
@@ -105,5 +109,20 @@ public class GameManager : MonoBehaviour {
             UpdateText();
             timerDelta += Time.deltaTime;
         }
+    }
+
+    public void BackClick()
+    {
+        backCanvas.SetActive(true);
+    }
+
+    public void BackCancelClick()
+    {
+        backCanvas.SetActive(false);
+    }
+
+    public void BackConfirmClick()
+    {
+        Application.LoadLevel("Menu");
     }
 }

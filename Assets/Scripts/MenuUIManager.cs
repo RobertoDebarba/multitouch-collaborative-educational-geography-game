@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 
-public class MenuManager : MonoBehaviour {
+public class MenuUIManager : MonoBehaviour {
 
     GameObject startMenuCanvas;
     GameObject insertNameCanvas;
+    GameObject exitCanvas;
+
     int selectedDifficulty = 0;
 
     public void Awake()
     {
         startMenuCanvas = GameObject.Find("StartMenuCanvas");
         insertNameCanvas = GameObject.Find("InsertNameCanvas");
+        exitCanvas = GameObject.Find("ExitCanvas");
 
         startMenuCanvas.SetActive(true);
         insertNameCanvas.SetActive(false);
+        exitCanvas.SetActive(false);
     }
 
     public void SelectLevel(int difficulty)
@@ -28,7 +32,17 @@ public class MenuManager : MonoBehaviour {
         Application.LoadLevel("Game");
     }
 
-    public void ExitGame()
+    public void ExitClick()
+    {
+        exitCanvas.SetActive(true);
+    }
+
+    public void ExitCancelClick()
+    {
+        exitCanvas.SetActive(false);
+    }
+
+    public void ExitConfirmClick()
     {
         Application.Quit();
     }
