@@ -8,6 +8,7 @@ public class GameUIManager : MonoBehaviour {
     GameObject collisionParent;
     GameObject stateParent;
     GameObject foundParent;
+    GameObject endParent;
     GameObject backCanvas;
 
     public Text foundText;
@@ -32,9 +33,11 @@ public class GameUIManager : MonoBehaviour {
         collisionParent = GameObject.Find("Collision");
         stateParent = GameObject.Find("States");
         foundParent = GameObject.Find("_FOUND");
+        endParent = GameObject.Find("_END");
         backCanvas = GameObject.Find("BackCanvas");
 
         backCanvas.SetActive(false);
+        endParent.SetActive(false);
     }
 
     void UpdateText()
@@ -122,6 +125,16 @@ public class GameUIManager : MonoBehaviour {
     }
 
     public void BackConfirmClick()
+    {
+        Application.LoadLevel("Menu");
+    }
+
+    public void PlayAgainClick()
+    {
+        Application.LoadLevel("Game");
+    }
+
+    public void MenuClick()
     {
         Application.LoadLevel("Menu");
     }
