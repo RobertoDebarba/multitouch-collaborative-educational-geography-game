@@ -11,7 +11,7 @@ public class Init : MonoBehaviour {
     GameObject statesParent;
     GameObject collisionParent;
 
-    GameObject previewObject;
+    Preview preview;
 
     public GameObject statePrefab;
     public GameObject collisionPrefab;
@@ -52,8 +52,8 @@ public class Init : MonoBehaviour {
         spawnObject = GameObject.Find("_SPAWN");
         statesParent = GameObject.Find("States");
         collisionParent = GameObject.Find("Collision");
-        previewObject = GameObject.Find("_PREVIEW");
-        previewObject.SetActive(false);
+
+        preview = new Preview();
     }
 
     public void Start()
@@ -130,21 +130,8 @@ public class Init : MonoBehaviour {
         StartCoroutine(showPreview());
     }
 
-    public IEnumerator loadInterval(){
-        int dificulty = 3; // Buscar do config static
-        if(dificulty == 1){
-            yield return new WaitForSeconds(7);
-        } else if(dificulty == 2) {
-            yield return new WaitForSeconds(5);
-        } else {
-            yield return new WaitForSeconds(3);
-        }
-    }
-
     public IEnumerator showPreview(bool shouldLoadGame = true) {
-        previewObject.SetActive(true);
-        yield return loadInterval();
-        previewObject.SetActive(false);
+        yield return preview.ShowPreview();
 
         if (shouldLoadGame)
             loadGame();

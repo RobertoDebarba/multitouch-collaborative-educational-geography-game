@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour {
 
-    GameObject collisionParent;
-    GameObject stateParent;
-    GameObject foundParent;
-    GameObject endParent;
-    GameObject backCanvas;
+    private static GameObject collisionParent;
+    private static GameObject stateParent;
+    private static GameObject foundParent;
+    private static GameObject endParent;
+    private static GameObject backCanvas;
+    private static GameObject backButton;
+    private static GameObject helpButton;
+
+    Preview preview;
 
     public Text foundText;
     public Text timerText;
@@ -30,14 +34,47 @@ public class GameUIManager : MonoBehaviour {
 
     public void Start()
     {
-        collisionParent = GameObject.Find("Collision");
-        stateParent = GameObject.Find("States");
-        foundParent = GameObject.Find("_FOUND");
-        endParent = GameObject.Find("_END");
-        backCanvas = GameObject.Find("BackCanvas");
+        preview = new Preview();
 
-        backCanvas.SetActive(false);
-        endParent.SetActive(false);
+        if (stateParent == null) {
+            stateParent = GameObject.Find("States");
+        }
+
+        if (collisionParent == null)
+        {
+            collisionParent = GameObject.Find("Collision");
+        }
+
+        if (foundParent == null)
+        {
+            foundParent = GameObject.Find("_FOUND");
+        }
+
+        if (endParent == null)
+        {
+            endParent = GameObject.Find("_END");
+        }
+
+        if (backCanvas == null)
+        {
+            backCanvas = GameObject.Find("BackCanvas");
+        }
+
+        if (helpButton == null)
+        {
+            helpButton = GameObject.Find("HelpButton");
+        }
+
+        if (backButton == null)
+        {
+            backButton = GameObject.Find("BackButton");
+        }
+
+        if (backCanvas != null && endParent != null)
+        {
+            backCanvas.SetActive(false);
+            endParent.SetActive(false);
+        }
     }
 
     void UpdateText()
@@ -98,6 +135,9 @@ public class GameUIManager : MonoBehaviour {
         finalTimeText.text = "Tempo final: " + GetTime();
         endObject.SetActive(true);
 
+        helpButton.SetActive(false);
+        backButton.SetActive(false);
+
         foreach (var obj in hidePanelsOnEnd)
         {
             Debug.Log(obj);
@@ -137,5 +177,10 @@ public class GameUIManager : MonoBehaviour {
     public void MenuClick()
     {
         Application.LoadLevel("Menu");
+    }
+
+    public void PreviewClick()
+    {
+        StartCoroutine(preview.ShowPreview());
     }
 }
