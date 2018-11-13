@@ -324,7 +324,7 @@ MonoBehaviour:
   timerText: {fileID: 0}
   endObject: {fileID: 0}
   finalTimeText: {fileID: 0}
-  previewButtonText: {fileID: 0}
+  previewText: {fileID: 0}
   hidePanelsOnEnd: []
 --- !u!4 &91522119
 Transform:
@@ -2581,7 +2581,7 @@ MonoBehaviour:
   timerText: {fileID: 1582030168}
   endObject: {fileID: 1959899639}
   finalTimeText: {fileID: 1627263630}
-  previewButtonText: {fileID: 0}
+  previewText: {fileID: 72474823}
   hidePanelsOnEnd:
   - {fileID: 834578984}
   - {fileID: 2057115980}

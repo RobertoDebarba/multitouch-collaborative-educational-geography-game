@@ -19,6 +19,7 @@ public class GameUIManager : MonoBehaviour {
     public Text timerText;
     public GameObject endObject;
     public Text finalTimeText;
+    public Text previewText;
     public GameObject[] hidePanelsOnEnd;
 
     int found = 0;
@@ -81,6 +82,7 @@ public class GameUIManager : MonoBehaviour {
     {
         foundText.text = "Estados encontrados: " + found;
         timerText.text = "Tempo: " + GetTime();
+        previewText.text = "AJUDA (" + (GameConfig.previewLimit - GameConfig.countOfPreviews).ToString() + ")";
     }
 
     string GetTime()
@@ -184,7 +186,6 @@ public class GameUIManager : MonoBehaviour {
         if (GameConfig.countOfPreviews < GameConfig.previewLimit)
         {
             GameConfig.countOfPreviews++;
-            //previewButtonText.text = "AJUDA(" + (GameConfig.previewLimit - GameConfig.countOfPreviews) + ")";
             StartCoroutine(preview.ShowPreview());
         }
     }
