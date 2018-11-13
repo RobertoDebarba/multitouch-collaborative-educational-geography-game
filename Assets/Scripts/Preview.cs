@@ -44,24 +44,14 @@ public class Preview : MonoBehaviour {
 
     private IEnumerator LoadInterval()
     {
-        int dificulty = 3;
-        if (dificulty == 1)
-        {
-            yield return new WaitForSeconds(7);
-        }
-        else if (dificulty == 2)
-        {
-            yield return new WaitForSeconds(5);
-        }
-        else
-        {
-            yield return new WaitForSeconds(3);
-        }
+
+        yield return new WaitForSeconds(GameConfig.previewTimeInSeconds);
+
     }
 
     private string GetRemainingTimeString()
     {
-        int totalSeconds = 3;
+        int totalSeconds = GameConfig.previewTimeInSeconds;
 
         int elapsedSeconds = (int)(timerDelta % 60);
         int remainingSeconds = totalSeconds - elapsedSeconds;

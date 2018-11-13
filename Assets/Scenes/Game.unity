@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 72474824}
   - component: {fileID: 72474823}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,6 +324,7 @@ MonoBehaviour:
   timerText: {fileID: 0}
   endObject: {fileID: 0}
   finalTimeText: {fileID: 0}
+  previewButtonText: {fileID: 0}
   hidePanelsOnEnd: []
 --- !u!4 &91522119
 Transform:
@@ -2580,6 +2581,7 @@ MonoBehaviour:
   timerText: {fileID: 1582030168}
   endObject: {fileID: 1959899639}
   finalTimeText: {fileID: 1627263630}
+  previewButtonText: {fileID: 0}
   hidePanelsOnEnd:
   - {fileID: 834578984}
   - {fileID: 2057115980}

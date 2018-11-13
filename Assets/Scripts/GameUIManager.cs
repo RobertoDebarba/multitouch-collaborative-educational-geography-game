@@ -181,6 +181,11 @@ public class GameUIManager : MonoBehaviour {
 
     public void PreviewClick()
     {
-        StartCoroutine(preview.ShowPreview());
+        if (GameConfig.countOfPreviews < GameConfig.previewLimit)
+        {
+            GameConfig.countOfPreviews++;
+            //previewButtonText.text = "AJUDA(" + (GameConfig.previewLimit - GameConfig.countOfPreviews) + ")";
+            StartCoroutine(preview.ShowPreview());
+        }
     }
 }

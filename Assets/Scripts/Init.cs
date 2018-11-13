@@ -126,7 +126,6 @@ public class Init : MonoBehaviour {
     }
 
     public void startGame() {
-        initGameConfig();
         StartCoroutine(showPreview());
     }
 
@@ -137,16 +136,6 @@ public class Init : MonoBehaviour {
             loadGame();
     }
 
-    public void initGameConfig() {
-        int dificulty = 3; // Buscar do config static
-        if(dificulty == 1){
-            GameConfig.countOfPreviews = 3;
-        } else if(dificulty == 2) {
-            GameConfig.countOfPreviews = 2;  
-        } else {
-            GameConfig.countOfPreviews = 1;
-        }
-    }
 
     public void Close()
     {
