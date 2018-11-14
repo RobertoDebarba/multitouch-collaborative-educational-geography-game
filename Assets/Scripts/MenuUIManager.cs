@@ -28,7 +28,9 @@ public class MenuUIManager : MonoBehaviour {
 
     private void configureGameConfig(int difficulty)
     {
+        print(difficulty);
         GameConfig.difficulty = difficulty;
+        GameConfig.countOfPreviews = 0;
         if (difficulty == 1)
         {
             GameConfig.previewLimit = 3;

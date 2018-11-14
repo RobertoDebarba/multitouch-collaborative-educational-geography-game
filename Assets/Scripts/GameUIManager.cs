@@ -11,7 +11,7 @@ public class GameUIManager : MonoBehaviour {
     private static GameObject endParent;
     private static GameObject backCanvas;
     private static GameObject backButton;
-    private static GameObject helpButton;
+    private static Button helpButton;
     private static GameObject statesInfo;
 
     Preview preview;
@@ -68,7 +68,7 @@ public class GameUIManager : MonoBehaviour {
 
         if (helpButton == null)
         {
-            helpButton = GameObject.Find("HelpButton");
+            helpButton = GameObject.Find("HelpButton").GetComponent<Button>();
         }
 
         if (backButton == null)
@@ -175,7 +175,7 @@ public class GameUIManager : MonoBehaviour {
         finalTimeText.text = "Tempo final: " + GetTime();
         endObject.SetActive(true);
 
-        helpButton.SetActive(false);
+        helpButton.gameObject.SetActive(false);
         backButton.SetActive(false);
 
         foreach (var obj in hidePanelsOnEnd)
@@ -267,7 +267,7 @@ public class GameUIManager : MonoBehaviour {
             StartCoroutine(preview.ShowPreview());
             if ((GameConfig.previewLimit - GameConfig.countOfPreviews) == 0)
             {
-                helpButton.SetActive(false);
+                helpButton.interactable = false;
             }
         }
     }
