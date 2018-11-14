@@ -265,6 +265,10 @@ public class GameUIManager : MonoBehaviour {
         {
             GameConfig.countOfPreviews++;
             StartCoroutine(preview.ShowPreview());
+            if ((GameConfig.previewLimit - GameConfig.countOfPreviews) == 0)
+            {
+                helpButton.SetActive(false);
+            }
         }
     }
 }
