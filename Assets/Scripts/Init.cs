@@ -13,6 +13,8 @@ public class Init : MonoBehaviour {
 
     Preview preview;
 
+    GameUIManager gameUIManager;
+
     public GameObject statePrefab;
     public GameObject collisionPrefab;
 
@@ -54,13 +56,13 @@ public class Init : MonoBehaviour {
         collisionParent = GameObject.Find("Collision");
 
         preview = new Preview();
+        gameUIManager = new GameUIManager();
     }
 
     public void Start()
     {
         startGame();
     }
-    
 
     Vector3 ObtainSpawnPosition()
     {
@@ -135,7 +137,6 @@ public class Init : MonoBehaviour {
         if (shouldLoadGame)
             loadGame();
     }
-
 
     public void Close()
     {

@@ -12,6 +12,7 @@ public class GameUIManager : MonoBehaviour {
     private static GameObject backCanvas;
     private static GameObject backButton;
     private static GameObject helpButton;
+    private static GameObject statesInfo;
 
     Preview preview;
 
@@ -21,12 +22,16 @@ public class GameUIManager : MonoBehaviour {
     public Text finalTimeText;
     public Text previewText;
     public GameObject[] hidePanelsOnEnd;
+    public Text backButtonText;
 
     int found = 0;
     const int max = 26;
     float timerDelta = 0;
     bool finishedGame = false;
     bool startedGame = false;
+    bool infosModeGame = false;
+
+    Dictionary<string, string> statesUrls = new Dictionary<string, string>();
 
     public void StartTimer()
     {
@@ -76,6 +81,39 @@ public class GameUIManager : MonoBehaviour {
             backCanvas.SetActive(false);
             endParent.SetActive(false);
         }
+
+        loadStatesUrl();
+
+    }
+
+    void loadStatesUrl()
+    {
+        statesUrls.Add("AC", StatesUrl.AC);
+        statesUrls.Add("AM", StatesUrl.AM);
+        statesUrls.Add("SC", StatesUrl.SC);
+        statesUrls.Add("RS", StatesUrl.RS);
+        statesUrls.Add("PR", StatesUrl.PR);
+        statesUrls.Add("SP", StatesUrl.SP);
+        statesUrls.Add("MT", StatesUrl.MT);
+        statesUrls.Add("RO", StatesUrl.RO);
+        statesUrls.Add("PA", StatesUrl.PA);
+        statesUrls.Add("MA", StatesUrl.MA);
+        statesUrls.Add("TO", StatesUrl.TO);
+        statesUrls.Add("PI", StatesUrl.PI);
+        statesUrls.Add("GO", StatesUrl.GO);
+        statesUrls.Add("MS", StatesUrl.MS);
+        statesUrls.Add("MG", StatesUrl.MG);
+        statesUrls.Add("RJ", StatesUrl.RJ);
+        statesUrls.Add("ES", StatesUrl.ES);
+        statesUrls.Add("BA", StatesUrl.BA);
+        statesUrls.Add("AL", StatesUrl.AL);
+        statesUrls.Add("RR", StatesUrl.RR);
+        statesUrls.Add("CE", StatesUrl.CE);
+        statesUrls.Add("AP", StatesUrl.AP);
+        statesUrls.Add("PB", StatesUrl.PB);
+        statesUrls.Add("PE", StatesUrl.PE);
+        statesUrls.Add("SE", StatesUrl.SE);
+        statesUrls.Add("RN", StatesUrl.RN);
     }
 
     void UpdateText()
@@ -147,8 +185,34 @@ public class GameUIManager : MonoBehaviour {
         }
     }
 
+    public void openUrl(string url)
+    {
+        if (infosModeGame)
+        {
+            Application.OpenURL(url);
+        }
+    }
+
     public void Update()
     {
+        if (infosModeGame)
+        {
+            // Input.touches.Any(x=>x.phase==TouchPhase.Began)
+            if (Input.GetMouseButtonDown(0))
+            {
+                Camera cam = Camera.main;
+                Vector2 origin = Vector2.zero;
+                Vector2 dir = Vector2.zero;
+                origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(origin, dir);
+                if (hit)
+                {
+                    string url = statesUrls[hit.collider.name];
+                    openUrl(url);
+                }
+            }
+        }
+
         if (startedGame && !finishedGame)
         {
             UpdateText();
@@ -158,7 +222,13 @@ public class GameUIManager : MonoBehaviour {
 
     public void BackClick()
     {
-        backCanvas.SetActive(true);
+        if (infosModeGame)
+        {
+            BackConfirmClick();
+        } else
+        {
+            backCanvas.SetActive(true);
+        }
     }
 
     public void BackCancelClick()
@@ -179,6 +249,14 @@ public class GameUIManager : MonoBehaviour {
     public void MenuClick()
     {
         Application.LoadLevel("Menu");
+    }
+
+    public void infosModeClick()
+    {
+        infosModeGame = true;
+        endObject.SetActive(false);
+        backButton.SetActive(true);
+        backButtonText.text = "VOLTAR PARA O MENU";
     }
 
     public void PreviewClick()
