@@ -198,12 +198,13 @@ public class GameUIManager : MonoBehaviour {
         if (infosModeGame)
         {
             // Input.touches.Any(x=>x.phase==TouchPhase.Began)
-            if (Input.GetMouseButtonDown(0))
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
             {
                 Camera cam = Camera.main;
                 Vector2 origin = Vector2.zero;
                 Vector2 dir = Vector2.zero;
-                origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                origin = Camera.main.ScreenToWorldPoint(touch.deltaPosition);
                 RaycastHit2D hit = Physics2D.Raycast(origin, dir);
                 if (hit)
                 {
