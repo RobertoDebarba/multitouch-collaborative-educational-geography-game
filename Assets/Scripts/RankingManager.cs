@@ -9,11 +9,13 @@ public class RankingManager : MonoBehaviour
 
     public static string gameDataProjectFilePath = "/Others/ranking.json";
     private static GameObject rankingObject;
-    private static Text rankingText;
+    public Text rankingText;
 
     void Start()
     {
         rankingObject = GameObject.Find("_RANKING");
+        rankingObject.SetActive(true);
+
         loadJSONFile();
         this.showRanking();
     }
@@ -28,30 +30,21 @@ public class RankingManager : MonoBehaviour
         {
             groups = new List<Group>(rank.groups);
         }
-        int count = 0;
         if (groups.Count > 0)
         {
             groups.ForEach(group =>
             {
-                if (count < 5)
+                if (group.timerDelta > currentGroup.timerDelta)
                 {
-                    if (currentGroup.timerDelta < group.timerDelta)
-                    {
-                        tempList.Add(currentGroup);
-                        currentGroup = group;
-                    }
-                    else
-                    {
-                        tempList.Add(group);
-                    }
-                    count++;
+                    tempList.Add(currentGroup);
                 }
+                tempList.Add(group);
             });
         } else
         {
             tempList.Add(currentGroup);
         }
-        rank = new Rank(tempList.ToArray());
+        rank = new Rank(tempList.GetRange(0, 5).ToArray());
         saveJSONFile(rank);
     }
 
@@ -74,7 +67,12 @@ public class RankingManager : MonoBehaviour
         {
             rank = JsonUtility.FromJson<Rank>(rankJSON);
         }
-        return null;
+        return rank;
+    }
+
+    public void backMenu()
+    {
+        Application.LoadLevel("Menu");
     }
 
     static string loadJSONFile()
@@ -90,7 +88,6 @@ public class RankingManager : MonoBehaviour
     static void saveJSONFile(Rank rank)
     {
         string dataAsJson = JsonUtility.ToJson(rank, true);
-        Debug.Log("teste" + dataAsJson);
         string filePath = Application.dataPath + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
     }

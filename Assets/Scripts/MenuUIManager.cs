@@ -5,19 +5,31 @@ public class MenuUIManager : MonoBehaviour {
 
     GameObject startMenuCanvas;
     GameObject insertNameCanvas;
+    GameObject insertPasswordRankingCanvas;
     GameObject exitCanvas;
 
     public InputField nameInputField;
+    public InputField passwordInputField;
+
+    public Text textPasswordStatus;
 
     public void Awake()
     {
         startMenuCanvas = GameObject.Find("StartMenuCanvas");
         insertNameCanvas = GameObject.Find("InsertNameCanvas");
         exitCanvas = GameObject.Find("ExitCanvas");
+        insertPasswordRankingCanvas = GameObject.Find("PasswordRankingCanvas");
 
         startMenuCanvas.SetActive(true);
         insertNameCanvas.SetActive(false);
+        insertPasswordRankingCanvas.SetActive(false);
         exitCanvas.SetActive(false);
+    }
+
+    public void StartPasswordRankingCanvas()
+    {
+        startMenuCanvas.SetActive(false);
+        insertPasswordRankingCanvas.SetActive(true);
     }
 
     public void SelectLevel(int difficulty)
@@ -55,6 +67,17 @@ public class MenuUIManager : MonoBehaviour {
     {
         GameConfig.groupName = nameInputField.text;
         Application.LoadLevel("Game");
+    }
+
+    public void ShowRanking()
+    {
+        if (passwordInputField.text == GameConfig.password)
+        {
+            Application.LoadLevel("Ranking");
+        } else
+        {
+            textPasswordStatus.text = "Senha incorreta! Tente novamente.";
+        }
     }
 
     public void ExitClick()

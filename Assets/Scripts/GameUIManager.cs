@@ -83,7 +83,6 @@ public class GameUIManager : MonoBehaviour {
         }
 
         loadStatesUrl();
-        EndGame();
     }
 
     void loadStatesUrl()
@@ -186,7 +185,6 @@ public class GameUIManager : MonoBehaviour {
 
         
         GameConfig.groupTimerDelta = timerDelta;
-        Debug.Log(GameConfig.groupTimerDelta);
         RankingManager.addGroupToRank();
     }
 
