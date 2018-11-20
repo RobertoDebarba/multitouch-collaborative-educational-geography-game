@@ -83,7 +83,7 @@ public class GameUIManager : MonoBehaviour {
         }
 
         loadStatesUrl();
-
+        EndGame();
     }
 
     void loadStatesUrl()
@@ -183,6 +183,11 @@ public class GameUIManager : MonoBehaviour {
             Debug.Log(obj);
             obj.SetActive(false);
         }
+
+        
+        GameConfig.groupTimerDelta = timerDelta;
+        Debug.Log(GameConfig.groupTimerDelta);
+        RankingManager.addGroupToRank();
     }
 
     public void openUrl(string url)

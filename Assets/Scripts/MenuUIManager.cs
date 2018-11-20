@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuUIManager : MonoBehaviour {
 
     GameObject startMenuCanvas;
     GameObject insertNameCanvas;
     GameObject exitCanvas;
+
+    public InputField nameInputField;
 
     public void Awake()
     {
@@ -50,6 +53,7 @@ public class MenuUIManager : MonoBehaviour {
 
     public void StartGame()
     {
+        GameConfig.groupName = nameInputField.text;
         Application.LoadLevel("Game");
     }
 
