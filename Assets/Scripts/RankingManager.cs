@@ -20,33 +20,10 @@ public class RankingManager : MonoBehaviour
         this.showRanking();
     }
 
-    public static void addGroupToRank()
-    {
-        List<Group> tempList = new List<Group>();
-        Group currentGroup = new Group(GameConfig.groupName, GameConfig.groupTimerDelta);
-        List<Group> groups = new List<Group>();
-        Rank rank = getRank();
-        if (rank != null)
-        {
-            groups = new List<Group>(rank.groups);
-        }
-        if (groups.Count > 0)
-        {
-            groups.ForEach(group =>
-            {
-                if (group.timerDelta > currentGroup.timerDelta)
-                {
-                    tempList.Add(currentGroup);
-                }
-                tempList.Add(group);
-            });
-        } else
-        {
-            tempList.Add(currentGroup);
-        }
-        rank = new Rank(tempList.GetRange(0, 5).ToArray());
-        saveJSONFile(rank);
-    }
+    public static void addGroupToRank()     {         Group currentGroup = new Group(GameConfig.groupName, GameConfig.groupTimerDelta);         Rank rank = getRank();         if (rank != null)         {             if (rank.groups.Length == 0)
+            {                 rank.groups[0] = currentGroup;             }
+            else
+            {                 for (int i = 0; i < rank.groups.Length && i < 5; i++)                 {                     if (currentGroup.timerDelta < rank.groups[i].timerDelta)                     {                         Group aux = rank.groups[i];                         rank.groups[i] = currentGroup;                         currentGroup = aux;                     }                 }             }          }         rank = new Rank(rank.groups);         saveJSONFile(rank);     } 
 
     void showRanking()
     {

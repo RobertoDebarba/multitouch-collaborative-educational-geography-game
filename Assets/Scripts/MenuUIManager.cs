@@ -32,6 +32,7 @@ public class MenuUIManager : MonoBehaviour {
     public void StartPasswordRankingCanvas()
     {
         startMenuCanvas.SetActive(false);
+        passwordInputField.inputType = InputField.InputType.Password;
         insertPasswordRankingCanvas.SetActive(true);
     }
 
