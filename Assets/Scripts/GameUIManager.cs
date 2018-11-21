@@ -236,7 +236,7 @@ public class GameUIManager : MonoBehaviour {
                 Camera cam = Camera.main;
                 Vector2 origin = Vector2.zero;
                 Vector2 dir = Vector2.zero;
-                origin = Camera.main.ScreenToWorldPoint(touch.deltaPosition);
+                origin = Camera.main.ScreenToWorldPoint(touch.position);
                 RaycastHit2D hit = Physics2D.Raycast(origin, dir);
                 if (hit)
                 {
