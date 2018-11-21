@@ -200,18 +200,17 @@ public class GameUIManager : MonoBehaviour {
     {
         if (infosModeGame)
         {
-            // Input.touches.Any(x=>x.phase==TouchPhase.Began)
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Ended)
             {
                 Camera cam = Camera.main;
-                Vector2 origin = Vector2.zero;
-                Vector2 dir = Vector2.zero;
-                origin = Camera.main.ScreenToWorldPoint(touch.position);
-                RaycastHit2D hit = Physics2D.Raycast(origin, dir);
-                if (hit)
+                Vector2 origin = Camera.main.ScreenToWorldPoint(touch.position);
+                Vector2 touchPosWorld2D = new Vector2(origin.x, origin.y);
+                RaycastHit2D hit = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
+                if (hit.collider != null)
                 {
-                    string url = statesUrls[hit.collider.name];
+                    GameObject touchedObject = hit.transform.gameObject;
+                    string url = statesUrls[touchedObject.transform.name];
                     openUrl(url);
                 }
             }
