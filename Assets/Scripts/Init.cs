@@ -7,9 +7,10 @@ public class Init : MonoBehaviour {
 
     GameObject masterObject;
     GameObject spawnObject;
-
+    GameObject previewObject;
     GameObject statesParent;
     GameObject collisionParent;
+    GameObject bubbleParent;
 
     GameObject baseObject;
 
@@ -19,6 +20,7 @@ public class Init : MonoBehaviour {
 
     public GameObject statePrefab;
     public GameObject collisionPrefab;
+    public GameObject bubblePrefab;
 
     List<State> stateSnaps = new List<State>()
     {
@@ -56,7 +58,9 @@ public class Init : MonoBehaviour {
         spawnObject = GameObject.Find("_SPAWN");
         statesParent = GameObject.Find("States");
         collisionParent = GameObject.Find("Collision");
+        bubbleParent = GameObject.Find("Bubbles");
         baseObject = GameObject.Find("Base");
+        previewObject = GameObject.Find("_PREVIEW");
 
         preview = new Preview();
         gameUIManager = new GameUIManager();
@@ -93,8 +97,9 @@ public class Init : MonoBehaviour {
             var stateObject = Instantiate(statePrefab);
             stateObject.name = state.Name;
 
-            var sprite = Resources.Load<Sprite>(state.Name);
-
+            var folder = GameConfig.difficulty == 3 ? "" : "named/";
+            var sprite = Resources.Load<Sprite>(folder + state.Name);
+            
             var collisionObject = Instantiate(collisionPrefab);
             collisionObject.GetComponent<SpriteRenderer>().sprite = sprite;
             collisionObject.AddComponent<PolygonCollider2D>();
@@ -118,22 +123,43 @@ public class Init : MonoBehaviour {
             stateObject.AddComponent<PolygonCollider2D>();
             stateObject.AddComponent<CircleCollider2D>();
             stateObject.GetComponent<CircleCollider2D>().radius = 0.15f;
+            stateObject.transform.parent = statesParent.transform;
             gestureEvent.AddListener((gesture) =>
             {
-                snapManager.ReleasedPiece(gesture.gameObject.GetComponent<State>());
+                snapManager.ReleasedPiece(snap, false);
             });
-            stateObject.transform.parent = statesParent.transform;
+            
+            if (GameConfig.difficulty == 3)
+            {
+                var bubbleObject = Instantiate(bubblePrefab);
+                bubbleObject.name = state.Name;
+                bubbleObject.AddComponent<CircleCollider2D>();
+                bubbleObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("bubbles/" + snap.Name);
+                bubbleObject.transform.localPosition = ObtainSpawnPosition();
+                bubbleObject.transform.parent = bubbleParent.transform;
+
+                gestureEvent = new Gesture.GestureEvent();
+                gestureEvent.AddListener((gesture) =>
+                {
+                    snapManager.ReleasedPiece(snap, true);
+                });
+                bubbleObject.GetComponent<ReleaseGesture>().OnRelease = gestureEvent;
+            }
+            
         }
         
         if (GameConfig.difficulty == 1)
             baseObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Base_Facil");
-
+        
         Destroy(spawnObject);
 
         snapManager.StartTimer();
     }
 
     public void startGame() {
+        if (GameConfig.difficulty != 3)
+            previewObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("named/dica");
+
         StartCoroutine(showPreview());
     }
 

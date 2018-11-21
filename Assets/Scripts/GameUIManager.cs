@@ -7,6 +7,7 @@ public class GameUIManager : MonoBehaviour {
 
     private static GameObject collisionParent;
     private static GameObject stateParent;
+    private static GameObject bubbleParent;
     private static GameObject foundParent;
     private static GameObject endParent;
     private static GameObject backCanvas;
@@ -24,7 +25,8 @@ public class GameUIManager : MonoBehaviour {
     public GameObject[] hidePanelsOnEnd;
     public Text backButtonText;
 
-    int found = 0;
+    int foundStates = 0;
+    int foundNames = 0;
     const int max = 26;
     float timerDelta = 0;
     bool finishedGame = false;
@@ -44,6 +46,11 @@ public class GameUIManager : MonoBehaviour {
 
         if (stateParent == null) {
             stateParent = GameObject.Find("States");
+        }
+
+        if (bubbleParent == null)
+        {
+            bubbleParent = GameObject.Find("Bubbles");
         }
 
         if (collisionParent == null)
@@ -117,7 +124,7 @@ public class GameUIManager : MonoBehaviour {
 
     void UpdateText()
     {
-        foundText.text = "Estados encontrados: " + found;
+        foundText.text = "Estados encontrados: " + foundStates;
         timerText.text = "Tempo: " + GetTime();
         previewText.text = "AJUDA (" + (GameConfig.previewLimit - GameConfig.countOfPreviews).ToString() + ")";
     }
@@ -129,10 +136,15 @@ public class GameUIManager : MonoBehaviour {
         return (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
 
-    public void ReleasedPiece(State stateSnap)
+    public void ReleasedPiece(State stateSnap, bool isBubble)
     {
-        var stateObj = stateParent.transform.Find(stateSnap.Name);
-        var stateCollider = stateObj.gameObject.GetComponent<CircleCollider2D>();
+        Transform comparingObj = null;
+        if (isBubble)
+            comparingObj = bubbleParent.transform.Find(stateSnap.Name);
+        else
+            comparingObj = stateParent.transform.Find(stateSnap.Name);
+
+        var stateCollider = comparingObj.gameObject.GetComponent<CircleCollider2D>();
 
         var collisionObj = collisionParent.transform.Find(stateSnap.Name);
         if (collisionObj == null)
@@ -148,16 +160,33 @@ public class GameUIManager : MonoBehaviour {
         {
             if (colliding[i] == stateCollider)
             {
-                var snap = stateObj.GetComponent<State>();
-                stateObj.transform.position = new Vector3(snap.X, snap.Y, stateObj.transform.position.z);
-                stateObj.GetComponent<PolygonCollider2D>().enabled = false;
-                stateObj.GetComponent<CircleCollider2D>().enabled = false;
+                if (isBubble)
+                {
+                    var stateObj = foundParent.transform.Find(stateSnap.Name);
 
-                stateObj.SetParent(foundParent.transform, false);
+                    if (stateObj != null)
+                    {
+                        stateObj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("named/" + stateSnap.Name);
 
-                found++;
+                        Destroy(comparingObj.gameObject);
 
-                if (found >= max)
+                        foundNames++;
+                    }
+                    
+                } else
+                {
+                    var snap = comparingObj.GetComponent<State>();
+                    comparingObj.transform.position = new Vector3(snap.X, snap.Y, comparingObj.transform.position.z);
+                    comparingObj.GetComponent<PolygonCollider2D>().enabled = false;
+                    comparingObj.GetComponent<CircleCollider2D>().enabled = false;
+
+                    comparingObj.SetParent(foundParent.transform, false);
+
+                    foundStates++;
+                }
+
+                if (foundStates >= max &&
+                    (GameConfig.difficulty != 3 || foundNames >= max))
                 {
                     EndGame();
                 }
