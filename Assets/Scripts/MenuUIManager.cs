@@ -7,6 +7,7 @@ public class MenuUIManager : MonoBehaviour {
     GameObject insertNameCanvas;
     GameObject insertPasswordRankingCanvas;
     GameObject exitCanvas;
+    GameObject howToPlayCanvas;
 
     public InputField nameInputField;
     public InputField passwordInputField;
@@ -18,12 +19,14 @@ public class MenuUIManager : MonoBehaviour {
         startMenuCanvas = GameObject.Find("StartMenuCanvas");
         insertNameCanvas = GameObject.Find("InsertNameCanvas");
         exitCanvas = GameObject.Find("ExitCanvas");
+        howToPlayCanvas = GameObject.Find("HowToPlayCanvas");
         insertPasswordRankingCanvas = GameObject.Find("PasswordRankingCanvas");
 
         startMenuCanvas.SetActive(true);
         insertNameCanvas.SetActive(false);
         insertPasswordRankingCanvas.SetActive(false);
         exitCanvas.SetActive(false);
+        howToPlayCanvas.SetActive(false);
     }
 
     public void StartPasswordRankingCanvas()
@@ -88,6 +91,11 @@ public class MenuUIManager : MonoBehaviour {
     public void ExitCancelClick()
     {
         exitCanvas.SetActive(false);
+    }
+
+    public void HowToPlayClick(bool active)
+    {
+        howToPlayCanvas.SetActive(active);
     }
 
     public void ExitConfirmClick()
