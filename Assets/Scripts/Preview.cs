@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Preview : MonoBehaviour {
 
-    private static GameObject previewObject;
+    public static GameObject previewObject;
     private static GameObject canvasObject;
     private static GameObject statesObject;
     private static Text previewTimeText;
