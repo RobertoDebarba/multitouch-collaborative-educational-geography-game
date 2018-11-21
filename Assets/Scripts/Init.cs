@@ -11,6 +11,8 @@ public class Init : MonoBehaviour {
     GameObject statesParent;
     GameObject collisionParent;
 
+    GameObject baseObject;
+
     Preview preview;
 
     GameUIManager gameUIManager;
@@ -54,6 +56,7 @@ public class Init : MonoBehaviour {
         spawnObject = GameObject.Find("_SPAWN");
         statesParent = GameObject.Find("States");
         collisionParent = GameObject.Find("Collision");
+        baseObject = GameObject.Find("Base");
 
         preview = new Preview();
         gameUIManager = new GameUIManager();
@@ -121,6 +124,9 @@ public class Init : MonoBehaviour {
             });
             stateObject.transform.parent = statesParent.transform;
         }
+        
+        if (GameConfig.difficulty == 1)
+            baseObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Base_Facil");
 
         Destroy(spawnObject);
 
