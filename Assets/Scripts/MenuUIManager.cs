@@ -8,6 +8,10 @@ public class MenuUIManager : MonoBehaviour {
     GameObject insertPasswordRankingCanvas;
     GameObject exitCanvas;
     GameObject howToPlayCanvas;
+    Button rankingButton;
+    InputField passwordField;
+    Button playButton;
+    InputField nameField;
 
     public InputField nameInputField;
     public InputField passwordInputField;
@@ -21,6 +25,13 @@ public class MenuUIManager : MonoBehaviour {
         exitCanvas = GameObject.Find("ExitCanvas");
         howToPlayCanvas = GameObject.Find("HowToPlayCanvas");
         insertPasswordRankingCanvas = GameObject.Find("PasswordRankingCanvas");
+        rankingButton = GameObject.Find("RankingButton").GetComponent<Button>();
+        passwordField = GameObject.Find("PasswordField").GetComponent<InputField>();
+        playButton = GameObject.Find("PlayButton").GetComponent<Button>();
+        nameField = GameObject.Find("NameField").GetComponent<InputField>();
+
+        rankingButton.interactable = false;
+        playButton.interactable = false;
 
         startMenuCanvas.SetActive(true);
         insertNameCanvas.SetActive(false);
@@ -102,5 +113,29 @@ public class MenuUIManager : MonoBehaviour {
     public void ExitConfirmClick()
     {
         Application.Quit();
+    }
+
+    public void OnPasswordChanged()
+    {
+        if (passwordField.text == null || passwordField.text.Trim().Length == 0)
+        {
+            rankingButton.interactable = false;
+        }
+        else
+        {
+            rankingButton.interactable = true;
+        }
+    }
+
+    public void OnNameChanged()
+    {
+        if (nameField.text == null || nameField.text.Trim().Length == 0)
+        {
+            playButton.interactable = false;
+        }
+        else
+        {
+            playButton.interactable = true;
+        }
     }
 }
