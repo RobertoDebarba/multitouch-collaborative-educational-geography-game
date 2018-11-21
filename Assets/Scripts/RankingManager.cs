@@ -9,7 +9,12 @@ public class RankingManager : MonoBehaviour
 
     public static string gameDataProjectFilePath = "/Others/ranking.json";
     private static GameObject rankingObject;
-    public Text rankingText;
+
+    public Text rankingTextFirst;
+    public Text rankingTextSecond; 
+    public Text rankingTextThird;
+    public Text rankingTextFourFourth;
+    public Text rankingTextFifth;
 
     void Start()
     {
@@ -28,12 +33,27 @@ public class RankingManager : MonoBehaviour
     void showRanking()
     {
         Rank rank = getRank();
-        List<Group> groups = new List<Group>(rank.groups);
-        int position = 0;
-        groups.ForEach(group =>
+        Debug.Log(rank.groups[0].name);
+        if(rank.groups.Length >= 1)
         {
-            rankingText.text += ++position + "º Lugar - Equipe: " + group.name + " - Tempo: " + this.convertTime(group.timerDelta);
-        });
+            rankingTextFirst.text += "1º Lugar - Equipe: " + rank.groups[0].name + " - Tempo: " + this.convertTime(rank.groups[0].timerDelta);
+        }
+        if (rank.groups.Length >= 2)
+        {
+            rankingTextSecond.text += "2º Lugar - Equipe: " + rank.groups[1].name + " - Tempo: " + this.convertTime(rank.groups[1].timerDelta);
+        }
+        if (rank.groups.Length >= 3)
+        {
+            rankingTextThird.text += "3º Lugar - Equipe: " + rank.groups[2].name + " - Tempo: " + this.convertTime(rank.groups[2].timerDelta);
+        }
+        if (rank.groups.Length >= 4)
+        {
+            rankingTextFourFourth.text += "4º Lugar - Equipe: " + rank.groups[3].name + " - Tempo: " + this.convertTime(rank.groups[3].timerDelta);
+        }
+        if (rank.groups.Length == 5)
+        {
+            rankingTextFifth.text += "5º Lugar - Equipe: " + rank.groups[4].name + " - Tempo: " + this.convertTime(rank.groups[4].timerDelta);
+        }
     }
 
     static Rank getRank()
