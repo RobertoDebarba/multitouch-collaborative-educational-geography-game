@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuUIManager : MonoBehaviour {
 
@@ -9,12 +10,9 @@ public class MenuUIManager : MonoBehaviour {
     GameObject exitCanvas;
     GameObject howToPlayCanvas;
     Button rankingButton;
-    InputField passwordField;
+    TMP_InputField passwordField;
     Button playButton;
-    InputField nameField;
-
-    public InputField nameInputField;
-    public InputField passwordInputField;
+    TMP_InputField nameField;
 
     public Text textPasswordStatus;
 
@@ -26,9 +24,9 @@ public class MenuUIManager : MonoBehaviour {
         howToPlayCanvas = GameObject.Find("HowToPlayCanvas");
         insertPasswordRankingCanvas = GameObject.Find("PasswordRankingCanvas");
         rankingButton = GameObject.Find("RankingButton").GetComponent<Button>();
-        passwordField = GameObject.Find("PasswordField").GetComponent<InputField>();
+        passwordField = GameObject.Find("PasswordField").GetComponent<TMP_InputField>();
         playButton = GameObject.Find("PlayButton").GetComponent<Button>();
-        nameField = GameObject.Find("NameField").GetComponent<InputField>();
+        nameField = GameObject.Find("NameField").GetComponent<TMP_InputField>();
 
         rankingButton.interactable = false;
         playButton.interactable = false;
@@ -43,7 +41,7 @@ public class MenuUIManager : MonoBehaviour {
     public void StartPasswordRankingCanvas()
     {
         startMenuCanvas.SetActive(false);
-        passwordInputField.inputType = InputField.InputType.Password;
+        passwordField.inputType = TMP_InputField.InputType.Password;
         insertPasswordRankingCanvas.SetActive(true);
     }
 
@@ -80,13 +78,13 @@ public class MenuUIManager : MonoBehaviour {
 
     public void StartGame()
     {
-        GameConfig.groupName = nameInputField.text;
+        GameConfig.groupName = nameField.text;
         Application.LoadLevel("Game");
     }
 
     public void ShowRanking()
     {
-        if (passwordInputField.text == GameConfig.password)
+        if (passwordField.text == GameConfig.password)
         {
             Application.LoadLevel("Ranking");
         } else
@@ -137,5 +135,15 @@ public class MenuUIManager : MonoBehaviour {
         {
             playButton.interactable = true;
         }
+    }
+
+    public void OpenKeyboard()
+    {
+        System.Diagnostics.Process.Start("osk.exe");
+    }
+
+    public void ClickBackFromPassword()
+    {
+        Application.LoadLevel("Menu");
     }
 }

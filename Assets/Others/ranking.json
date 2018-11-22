@@ -1,24 +1,24 @@
 {
     "groups": [
         {
+            "name": "",
+            "timerDelta": 0.0
+        },
+        {
+            "name": "",
+            "timerDelta": 0.0
+        },
+        {
+            "name": "",
+            "timerDelta": 0.0
+        },
+        {
             "name": "aaa",
             "timerDelta": 110.0
         },
         {
             "name": "bbb",
             "timerDelta": 220.0
-        },
-        {
-            "name": "ddd",
-            "timerDelta": 320.0
-        },
-        {
-            "name": "eee",
-            "timerDelta": 420.0
-        },
-        {
-            "name": "fff",
-            "timerDelta": 520.0
         }
     ]
 }

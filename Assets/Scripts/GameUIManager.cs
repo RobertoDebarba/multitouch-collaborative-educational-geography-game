@@ -14,6 +14,7 @@ public class GameUIManager : MonoBehaviour {
     private static GameObject backButton;
     private static Button helpButton;
     private static GameObject statesInfo;
+    private static GameObject statesInfoPanel;
 
     Preview preview;
 
@@ -78,15 +79,21 @@ public class GameUIManager : MonoBehaviour {
             helpButton = GameObject.Find("HelpButton").GetComponent<Button>();
         }
 
+        if (statesInfoPanel == null)
+        {
+            statesInfoPanel = GameObject.Find("StatesInfoPanel");
+        }
+
         if (backButton == null)
         {
             backButton = GameObject.Find("BackButton");
         }
 
-        if (backCanvas != null && endParent != null)
+        if (backCanvas != null && endParent != null && statesInfoPanel != null)
         {
             backCanvas.SetActive(false);
             endParent.SetActive(false);
+            statesInfoPanel.SetActive(false);
         }
 
         loadStatesUrl();
@@ -288,7 +295,13 @@ public class GameUIManager : MonoBehaviour {
         infosModeGame = true;
         endObject.SetActive(false);
         backButton.SetActive(true);
+        statesInfoPanel.SetActive(true);
         backButtonText.text = "VOLTAR PARA O MENU";
+    }
+
+    public void ClickOkStatesInfo()
+    {
+        statesInfoPanel.SetActive(false);
     }
 
     public void PreviewClick()
