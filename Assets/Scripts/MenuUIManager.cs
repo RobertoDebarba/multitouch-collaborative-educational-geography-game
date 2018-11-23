@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using TouchScript;
+using TouchScript.Layers.UI;
 
 public class MenuUIManager : MonoBehaviour {
 
@@ -36,6 +38,17 @@ public class MenuUIManager : MonoBehaviour {
         insertPasswordRankingCanvas.SetActive(false);
         exitCanvas.SetActive(false);
         howToPlayCanvas.SetActive(false);
+    }
+
+    public void Update()
+    {
+        var touchScriptInputModule = GameObject.Find("EventSystem").GetComponent<TouchScriptInputModule>();
+        if (touchScriptInputModule != null)
+        {
+            Debug.Log("pegou");
+            touchScriptInputModule.enabled = false;
+            Destroy(touchScriptInputModule);
+        }
     }
 
     public void StartPasswordRankingCanvas()
