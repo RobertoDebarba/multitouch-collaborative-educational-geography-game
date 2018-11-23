@@ -40,17 +40,6 @@ public class MenuUIManager : MonoBehaviour {
         howToPlayCanvas.SetActive(false);
     }
 
-    public void Update()
-    {
-        var touchScriptInputModule = GameObject.Find("EventSystem").GetComponent<TouchScriptInputModule>();
-        if (touchScriptInputModule != null)
-        {
-            Debug.Log("pegou");
-            touchScriptInputModule.enabled = false;
-            Destroy(touchScriptInputModule);
-        }
-    }
-
     public void StartPasswordRankingCanvas()
     {
         startMenuCanvas.SetActive(false);
