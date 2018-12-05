@@ -4804,12 +4804,11 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "O mapa apresenta s\xF3 o contorno do Brasil. Sua miss\xE3o \xE9, com a
-    ajuda de seu colega, completar o mapa encaixando os estados  em seus respectivos
-    lugares. \nPara fazer isso, arraste os estados para dentro do mapa. \nQuando seu
-    mapa estiver completo os nomes dos estados aparecer\xE3o ao lado. \nSua segunda
-    miss\xE3o \xE9 nomear cada estado.\nSe precisar de ajuda \xE9 s\xF3 clicar na
-    parte inferior da tela.\nMas s\xF3 use esse recurso como \xFAltima op\xE7\xE3o.\nBom
-    jogo!"
+    ajuda de seu colega, completar o mapa encaixando os estados em seus respectivos
+    lugares. \nPara fazer isso, arraste os estados para dentro do mapa. \nSe voc\xEA
+    escolher o modo dif\xEDcil tamb\xE9m precisar\xE1 posicionar os nomes dos estados
+    corretamente.\nSe precisar de ajuda \xE9 s\xF3 clicar na parte inferior da tela.\nMas
+    s\xF3 use esse recurso como \xFAltima op\xE7\xE3o.\nBom jogo!"
 --- !u!222 &2081341391
 CanvasRenderer:
   m_ObjectHideFlags: 0

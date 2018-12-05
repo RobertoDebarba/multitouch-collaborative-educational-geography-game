@@ -276,6 +276,7 @@ public class GameUIManager : MonoBehaviour {
     public void PlayAgainClick()
     {
         Application.LoadLevel("Game");
+        MenuUIManager.configureGameConfig(GameConfig.difficulty);
     }
 
     public void MenuClick()

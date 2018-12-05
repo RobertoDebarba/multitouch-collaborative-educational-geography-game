@@ -157,8 +157,7 @@ public class Init : MonoBehaviour {
     }
 
     public void startGame() {
-        if (GameConfig.difficulty != 3)
-            previewObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("named/dica");
+        previewObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("named/dica");
 
         StartCoroutine(showPreview());
     }

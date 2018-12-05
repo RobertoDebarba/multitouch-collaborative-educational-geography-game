@@ -56,7 +56,7 @@ public class MenuUIManager : MonoBehaviour {
         insertNameCanvas.SetActive(true);
     }
 
-    private void configureGameConfig(int difficulty)
+    public static void configureGameConfig(int difficulty)
     {
         print(difficulty);
         GameConfig.difficulty = difficulty;
