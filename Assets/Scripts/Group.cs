@@ -5,7 +5,7 @@ public class Group {
 
     public string name;
     public float timerDelta;
-
+    
     public Group()
     {
 

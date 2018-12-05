@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
-
+using System;
 
 public class RankingManager : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class RankingManager : MonoBehaviour
     public static string gameDataProjectFilePath = "/Resources/ranking.json";
     private static GameObject rankingObject;
 
-    public Text rankingTextFirst;
+    public Text rankingGeneralText;
     public Text rankingTextSecond; 
     public Text rankingTextThird;
     public Text rankingTextFourFourth;
@@ -25,17 +25,43 @@ public class RankingManager : MonoBehaviour
         this.showRanking();
     }
 
-    public static void addGroupToRank()     {         Group currentGroup = new Group(GameConfig.groupName, GameConfig.groupTimerDelta);         Rank rank = getRank();         List<Group> auxList = new List<Group>();         if (rank != null)         {             if (rank.groups.Count == 0)
-            {                 auxList.Add(currentGroup);             }
+    public static void addGroupToRank()
+    {
+        Group currentGroup = new Group(GameConfig.groupName, GameConfig.groupTimerDelta);
+        Rank rank = getRank();
+        
+        if (rank != null)
+        {
+            List<Group> auxList = new List<Group>();
+            List<Group> groupList = null;
+            switch (GameConfig.difficulty)
+            {
+                case 1:
+                    groupList = rank.easy;
+                    break;
+                case 2:
+                    groupList = rank.medium;
+                    break;
+                case 3:
+                    groupList = rank.hard;
+                    break;
+            }
+
+            if (groupList.Count == 0)
+            {
+                auxList.Add(currentGroup);
+            }
             else
-            {                 for (int i = 0; i <= rank.groups.Count && auxList.Count < 5; i++)                 {
-                    if (i == rank.groups.Count)
+            {
+                for (int i = 0; i <= groupList.Count && auxList.Count < 3; i++)
+                {
+                    if (i == groupList.Count)
                     {
                         auxList.Add(currentGroup);
                     }
                     else
                     {
-                        Group groupInPosition = rank.groups[i];
+                        Group groupInPosition = groupList[i];
                         if (currentGroup.timerDelta < groupInPosition.timerDelta)
                         {
                             Group aux = groupInPosition;
@@ -48,30 +74,48 @@ public class RankingManager : MonoBehaviour
                         }
                     }
 
-                }             }          }         rank.groups = auxList;         saveJSONFile(rank);     }
+                }
+            }
+
+            groupList.Clear();
+            groupList.AddRange(auxList);
+            
+            saveJSONFile(rank);
+        }
+    }
 
     void showRanking()
     {
         Rank rank = getRank();
-        if(rank.groups.Count >= 1)
+
+        if (rank.easy.Count > 0)
         {
-            rankingTextFirst.text += "1º Lugar - Equipe: " + rank.groups[0].name + " - Tempo: " + this.convertTime(rank.groups[0].timerDelta);
+            rankingGeneralText.text += "Fácil\n";
+            for (int i = 0; i < Math.Min(rank.easy.Count, 3); i++)
+            {
+                var group = rank.easy[i];
+                rankingGeneralText.text += (i + 1) + "º Lugar - Equipe: " + group.name + " - Tempo: " + this.convertTime(group.timerDelta) + "\n";
+            }
         }
-        if (rank.groups.Count >= 2)
+
+        if (rank.medium.Count > 0)
         {
-            rankingTextSecond.text += "2º Lugar - Equipe: " + rank.groups[1].name + " - Tempo: " + this.convertTime(rank.groups[1].timerDelta);
+            rankingGeneralText.text += "\nMédio\n";
+            for (int i = 0; i < Math.Min(rank.medium.Count, 3); i++)
+            {
+                var group = rank.medium[i];
+                rankingGeneralText.text += (i + 1) + "º Lugar - Equipe: " + group.name + " - Tempo: " + this.convertTime(group.timerDelta) + "\n";
+            }
         }
-        if (rank.groups.Count >= 3)
+
+        if (rank.hard.Count > 0)
         {
-            rankingTextThird.text += "3º Lugar - Equipe: " + rank.groups[2].name + " - Tempo: " + this.convertTime(rank.groups[2].timerDelta);
-        }
-        if (rank.groups.Count >= 4)
-        {
-            rankingTextFourFourth.text += "4º Lugar - Equipe: " + rank.groups[3].name + " - Tempo: " + this.convertTime(rank.groups[3].timerDelta);
-        }
-        if (rank.groups.Count == 5)
-        {
-            rankingTextFifth.text += "5º Lugar - Equipe: " + rank.groups[4].name + " - Tempo: " + this.convertTime(rank.groups[4].timerDelta);
+            rankingGeneralText.text += "\nDifícil\n";
+            for (int i = 0; i < Math.Min(rank.hard.Count, 3); i++)
+            {
+                var group = rank.hard[i];
+                rankingGeneralText.text += (i + 1) + "º Lugar - Equipe: " + group.name + " - Tempo: " + this.convertTime(group.timerDelta) + "\n";
+            }
         }
     }
 

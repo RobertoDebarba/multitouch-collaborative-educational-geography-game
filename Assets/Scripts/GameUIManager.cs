@@ -234,7 +234,7 @@ public class GameUIManager : MonoBehaviour {
 
     public void Update()
     {
-        if (infosModeGame)
+        if (infosModeGame && Input.GetButtonUp("Button 1"))
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
