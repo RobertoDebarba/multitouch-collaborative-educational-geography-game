@@ -3,14 +3,14 @@
 [System.Serializable]
 public class Rank {
 
-    public Group[] groups;
+    public List<Group> groups;
 
     public Rank()
     {
-        this.groups = new Group[5];
+        this.groups = new List<Group>();
     }
 
-    public Rank(Group[] groups)
+    public Rank(List<Group> groups)
     {
         this.groups = groups;
     }
