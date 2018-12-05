@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class Preview : MonoBehaviour {
 
-    public static GameObject previewObject;
+    private static GameObject previewObject;
     private static GameObject canvasObject;
     private static GameObject statesObject;
+    private static GameObject bubblesObject;
     private static Text previewTimeText;
 
     private static float timerDelta = 0;
@@ -17,6 +18,7 @@ public class Preview : MonoBehaviour {
         previewObject = GameObject.Find("_PREVIEW");
         canvasObject = GameObject.Find("Canvas");
         statesObject = GameObject.Find("States");
+        bubblesObject = GameObject.Find("Bubbles");
         previewTimeText = GameObject.Find("PreviewTimeText").GetComponent<Text>();
     }
 	
@@ -34,12 +36,21 @@ public class Preview : MonoBehaviour {
         canvasObject.SetActive(false);
         statesObject.SetActive(false);
         previewObject.SetActive(true);
+        if (GameConfig.difficulty == 3)
+        {
+            bubblesObject.SetActive(false);            
+        }
 
         yield return LoadInterval();
 
         canvasObject.SetActive(true);
         statesObject.SetActive(true);
-        previewObject.SetActive(false);
+        previewObject.SetActive(false);  
+
+        if (GameConfig.difficulty == 3)
+        {
+            bubblesObject.SetActive(true);         
+        }
     }
 
     private IEnumerator LoadInterval()
