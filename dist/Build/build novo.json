@@ -1,6 +1,6 @@
 {
 "companyName": "FURB",
-"productName": "Onde Estou?",
+"productName": "Onde Estou",
 "dataUrl": "build novo.data.unityweb",
 "wasmCodeUrl": "build novo.wasm.code.unityweb",
 "wasmFrameworkUrl": "build novo.wasm.framework.unityweb",
